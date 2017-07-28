@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="30 seconds">
+	<!-- 设置日志输出根目录 -->
+	<property name="log.dir" value="/data/logs/message/" />
+	<property name="encoding" value="UTF-8" />
+	<!--<property name="normal-pattern" value="[%d{yyyy-MM-dd.HH:mm:ss}] %-5level [%thread] [%X{reqId}] %logger{10} %msg%n" />-->
+	<!--<property name="console-pattern" value="%d{yyyy-MM-dd HH:mm:ss}|%.-5level|%-40.40logger{0}|%msg%n" />-->
+    <property name="normal-pattern" value="[%d] [%-5level] [%thread] [%X{reqId}] %logger{10} %msg%n" />
+    <property name="console-pattern" value="%d|[%.-5level]|[%X{reqId}]|%-40.40logger{0}|%msg%n"/>
+
+    <appender name="messageCustom" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.dir}/message.log</file>
+        <prudent>false</prudent>
+        <append>true</append>
+        <encoder>
+            <pattern>${normal-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名 -->
+            <fileNamePattern>${log.dir}/message.%d{yyyy-MM-dd}.%i.log.gz
+            </fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--日志文件最大的大小 -->
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="messageStdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${console-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+    </appender>
+
+	<root level="DEBUG">
+		<appender-ref ref="messageStdout" />
+	</root>
+
+</configuration>
