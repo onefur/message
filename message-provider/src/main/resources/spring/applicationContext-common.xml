@@ -37,10 +37,12 @@
 			<list>
 				<value>classpath:commonconfig.properties</value>
 				<value>classpath:config.properties</value>
+				<value>classpath:rabbitmq.properties</value>
 			</list>
 		</property>
 	</bean>
 	
-	<import resource="applicationContext-dao.xml" />
-	<import resource="applicationContext-provider.xml" />
+	<!-- <import resource="applicationContext-dao.xml" /> -->
+<!-- 	<import resource="applicationContext-provider.xml" /> -->
+	<import resource="applicationContext-rabbitmq.xml" />
 </beans>
